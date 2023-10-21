@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WeatherApiExample</string>
+    <string name="try_again">Try Again</string>
+    <string name="error_try_again_later">Server Error. Please try again later</string>
+    <string name="text_tempC">%1$.1f \u2103</string>
+    <string name="city_name">City Name</string>
+    <string name="max_text">Max:</string>
+    <string name="min_text">Min:</string>
+    <string name="date">Date</string>
+</resources>
