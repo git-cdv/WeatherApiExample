@@ -7,4 +7,5 @@
     <string name="max_text">Max:</string>
     <string name="min_text">Min:</string>
     <string name="date">Date</string>
+    <string name="material_icon">Material icon</string>
 </resources>

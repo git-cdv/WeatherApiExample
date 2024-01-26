@@ -5,6 +5,7 @@ package chkan.example.weatherapiexample.core.model
  */
 sealed class ResultOf<T>
 
+
 /**
  * Operation is in progress
  */

@@ -1,50 +1,44 @@
 package chkan.example.weatherapiexample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import chkan.example.weatherapiexample.navigator.NavOptions
-import chkan.example.weatherapiexample.navigator.Navigator
-import chkan.example.weatherapiexample.ui.screens.details.ForecastByCityFragment
-import chkan.example.weatherapiexample.ui.screens.list.ListOfCitiesFragment
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import chkan.example.weatherapiexample.ui.ShareViewModel
+import chkan.example.weatherapiexample.ui.screens.details.DetailsScreen
+import chkan.example.weatherapiexample.ui.screens.list.WeatherListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), Navigator {
+class MainActivity : AppCompatActivity(){
+
+    private val shareViewModel: ShareViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            val navController = rememberNavController()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragmentContainer, ListOfCitiesFragment())
-                .commit()
+            NavHost(navController = navController, startDestination = "list") {
+                composable("list") {
+                    WeatherListScreen(onNavigateToDetails = { navController.navigate("details/$it") }, shareViewModel = shareViewModel)
+                }
+                composable(
+                    route = "details/{city}",
+                    arguments = listOf(navArgument("city") { type = NavType.StringType })
+                ) {
+                    val city = it.arguments?.getString("city")
+                    city?.let {
+                        val forecastList = shareViewModel.getForecastDataByCity(city) ?: listOf()
+                        DetailsScreen(city = city, onNavigateBack = { navController.popBackStack() }, forecastList = forecastList)
+                    }
+                }
+            }
         }
     }
-
-    override fun showForecastScreen(options: NavOptions) {
-        launchFragment(ForecastByCityFragment.newInstance(options))
-    }
-
-    override fun goBack() {
-        onBackPressedDispatcher.onBackPressed()
-    }
-
-    private fun launchFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.slide_out
-            )
-            .setReorderingAllowed(true)
-            .addToBackStack(fragment.tag)
-            .replace(R.id.fragmentContainer, fragment)
-            .commit()
-    }
-
 }

@@ -1,12 +1,13 @@
 package chkan.example.weatherapiexample.ui
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chkan.example.weatherapiexample.core.model.ErrorResult
 import chkan.example.weatherapiexample.core.model.PendingResult
+import chkan.example.weatherapiexample.core.model.ResultOf
 import chkan.example.weatherapiexample.core.model.SuccessResult
-import chkan.example.weatherapiexample.core.views.LiveResult
-import chkan.example.weatherapiexample.core.views.MutableLiveResult
 import chkan.example.weatherapiexample.domain.models.ForecastWeatherItem
 import chkan.example.weatherapiexample.domain.models.WeatherDomainModel
 import chkan.example.weatherapiexample.domain.usecases.GetCitiesListUseCase
@@ -30,8 +31,8 @@ class ShareViewModel @Inject constructor(
     private val domainToUiForecastMapper: WeatherDomainToUiForecastMapper,
 ) : ViewModel() {
 
-    private val _citiesWithWeatherResource = MutableLiveResult<WeatherUiModel>(PendingResult())
-    val citiesWithWeatherResource: LiveResult<WeatherUiModel> = _citiesWithWeatherResource
+    private val _citiesWithWeatherResource = mutableStateOf<ResultOf<WeatherUiModel>>(PendingResult())
+    val citiesWithWeatherResource: State<ResultOf<WeatherUiModel>> = _citiesWithWeatherResource
 
     var citiesWithForecast : Map<String, List<ForecastWeatherItem>> = mutableMapOf()
 
@@ -51,7 +52,7 @@ class ShareViewModel @Inject constructor(
             deferredResults.awaitAll().filterNotNull().also { list ->
                 val result = if (list.isEmpty()) ErrorResult(Exception("No data from API"))
                 else SuccessResult(domainToUiMapper.map(list))
-                _citiesWithWeatherResource.postValue(result)
+                _citiesWithWeatherResource.value = result
                 saveForecastData(list)
             }
         }
@@ -66,7 +67,7 @@ class ShareViewModel @Inject constructor(
     fun getForecastDataByCity(city: String) = citiesWithForecast[city]
 
     fun tryAgain() {
-        _citiesWithWeatherResource.postValue(PendingResult())
+        _citiesWithWeatherResource.value = PendingResult()
         load()
     }
 
