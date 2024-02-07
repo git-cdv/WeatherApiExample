@@ -38,7 +38,7 @@ fun WeatherListScreen(
 
     when (resultFromApi) {
         is SuccessResult -> WeatherList((resultFromApi as SuccessResult<WeatherUiModel>).data.currentListItem, onNavigateToDetails)
-        is ErrorResult -> ShowError((resultFromApi as ErrorResult<WeatherUiModel>).exception)
+        is ErrorResult -> ShowError((resultFromApi as ErrorResult<WeatherUiModel>).exception){ shareViewModel.tryAgain() }
         is PendingResult -> ShowPending()
     }
 }
@@ -52,7 +52,7 @@ fun ShowPending() {
 }
 
 @Composable
-fun ShowError(exception: Exception) {
+fun ShowError(exception: Exception, onTryAgain: ()->Unit) {
     Column(verticalArrangement = Arrangement.Center,
         modifier = Modifier
         .fillMaxSize()
@@ -76,7 +76,9 @@ fun ShowError(exception: Exception) {
                 .align(Alignment.CenterHorizontally)
                 .padding(start = 16.dp, end = 8.dp)
         )
-        Button(onClick = {}, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        Button(onClick = {
+            onTryAgain.invoke()
+        }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
             Text(stringResource(R.string.try_again))
         }
     }
@@ -102,5 +104,5 @@ fun WeatherList(list: List<CurrentWeatherItem>, onNavigateToDetails: (String) ->
 @Preview(showSystemUi = true)
 @Composable
 fun ShowErrorPreview() {
-    ShowError(java.lang.Exception("Exception reason"))
+    ShowError(java.lang.Exception("Exception reason")){}
 }

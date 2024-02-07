@@ -34,7 +34,7 @@ class ShareViewModel @Inject constructor(
     private val _citiesWithWeatherResource = mutableStateOf<ResultOf<WeatherUiModel>>(PendingResult())
     val citiesWithWeatherResource: State<ResultOf<WeatherUiModel>> = _citiesWithWeatherResource
 
-    var citiesWithForecast : Map<String, List<ForecastWeatherItem>> = mutableMapOf()
+    private var citiesWithForecast : Map<String, List<ForecastWeatherItem>> = mutableMapOf()
 
     init {
         load()
