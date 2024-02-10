@@ -30,12 +30,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chkan.example.weatherapiexample.R
-import chkan.example.weatherapiexample.domain.models.CurrentWeatherItem
+import chkan.example.domain.models.CurrentWeatherItem
 import coil.compose.AsyncImage
 
 @Composable
 fun WeatherListCard(
-    weather: CurrentWeatherItem,
+    weather: chkan.example.domain.models.CurrentWeatherItem,
     onWeatherClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -96,17 +96,27 @@ fun WeatherImage(url: String) {
     )
 }
 
-private class WeatherListPreviewProvider : PreviewParameterProvider<CurrentWeatherItem> {
-    override val values: Sequence<CurrentWeatherItem> = sequenceOf(
-        CurrentWeatherItem(id = 1, iconUrl = "", nameCity = "Gandalf", currentTempC = 10.0),
-        CurrentWeatherItem(id = 1, iconUrl = "", nameCity = "Gandalf long long long long", currentTempC = 17.0)
+private class WeatherListPreviewProvider : PreviewParameterProvider<chkan.example.domain.models.CurrentWeatherItem> {
+    override val values: Sequence<chkan.example.domain.models.CurrentWeatherItem> = sequenceOf(
+        chkan.example.domain.models.CurrentWeatherItem(
+            id = 1,
+            iconUrl = "",
+            nameCity = "Gandalf",
+            currentTempC = 10.0
+        ),
+        chkan.example.domain.models.CurrentWeatherItem(
+            id = 1,
+            iconUrl = "",
+            nameCity = "Gandalf long long long long",
+            currentTempC = 17.0
+        )
     )
 }
 
 @Preview
 @Composable
 fun WeatherListCardPreview(
-    @PreviewParameter(WeatherListPreviewProvider::class) weather: CurrentWeatherItem
+    @PreviewParameter(WeatherListPreviewProvider::class) weather: chkan.example.domain.models.CurrentWeatherItem
 ) {
     WeatherListCard(weather = weather, onWeatherClicked = {})
 }

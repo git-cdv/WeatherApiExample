@@ -4,14 +4,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import chkan.example.weatherapiexample.core.model.ErrorResult
-import chkan.example.weatherapiexample.core.model.PendingResult
-import chkan.example.weatherapiexample.core.model.ResultOf
-import chkan.example.weatherapiexample.core.model.SuccessResult
-import chkan.example.weatherapiexample.domain.models.ForecastWeatherItem
-import chkan.example.weatherapiexample.domain.models.WeatherDomainModel
-import chkan.example.weatherapiexample.domain.usecases.GetCitiesListUseCase
-import chkan.example.weatherapiexample.domain.usecases.GetWeatherByCityUseCase
+import chkan.example.core.model.ErrorResult
+import chkan.example.core.model.PendingResult
+import chkan.example.core.model.ResultOf
+import chkan.example.core.model.SuccessResult
+import chkan.example.domain.models.ForecastWeatherItem
+import chkan.example.domain.models.WeatherDomainModel
+import chkan.example.domain.usecases.GetCitiesListUseCase
+import chkan.example.domain.usecases.GetWeatherByCityUseCase
 import chkan.example.weatherapiexample.ui.mappers.WeatherDomainToUiForecastMapper
 import chkan.example.weatherapiexample.ui.mappers.WeatherDomainToUiMapper
 import chkan.example.weatherapiexample.ui.models.WeatherUiModel
@@ -31,7 +31,9 @@ class ShareViewModel @Inject constructor(
     private val domainToUiForecastMapper: WeatherDomainToUiForecastMapper,
 ) : ViewModel() {
 
-    private val _citiesWithWeatherResource = mutableStateOf<ResultOf<WeatherUiModel>>(PendingResult())
+    private val _citiesWithWeatherResource = mutableStateOf<ResultOf<WeatherUiModel>>(
+        PendingResult()
+    )
     val citiesWithWeatherResource: State<ResultOf<WeatherUiModel>> = _citiesWithWeatherResource
 
     private var citiesWithForecast : Map<String, List<ForecastWeatherItem>> = mutableMapOf()

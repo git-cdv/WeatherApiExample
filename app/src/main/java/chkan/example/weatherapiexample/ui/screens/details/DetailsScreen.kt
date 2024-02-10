@@ -21,8 +21,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import chkan.example.domain.models.ForecastWeatherItem
 import chkan.example.weatherapiexample.R
-import chkan.example.weatherapiexample.domain.models.ForecastWeatherItem
 
 
 @Composable
@@ -75,11 +75,13 @@ fun ForecastList(list: List<ForecastWeatherItem>) {
 @Preview(showSystemUi = true)
 @Composable
 fun DetailsScreenPreview() {
-    DetailsScreen(city = "City", onNavigateBack = {}, forecastList = listOf(ForecastWeatherItem(
-        id = 1,
-        date = "Feb.24",
-        maxTempC = 4.5,
-        minTempC = 6.7,
-        iconUrl = ""
-    )) )
+    DetailsScreen(city = "City", onNavigateBack = {}, forecastList = listOf(
+        ForecastWeatherItem(
+            id = 1,
+            date = "Feb.24",
+            maxTempC = 4.5,
+            minTempC = 6.7,
+            iconUrl = ""
+        )
+    ) )
 }

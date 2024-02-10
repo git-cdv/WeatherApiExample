@@ -28,13 +28,13 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chkan.example.weatherapiexample.R
-import chkan.example.weatherapiexample.domain.models.ForecastWeatherItem
+import chkan.example.domain.models.ForecastWeatherItem
 import coil.compose.AsyncImage
 import kotlin.random.Random
 
 @Composable
 fun WeatherForecastCard(
-    forecast: ForecastWeatherItem,
+    forecast: chkan.example.domain.models.ForecastWeatherItem,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -105,9 +105,9 @@ fun WeatherImage(url: String) {
     )
 }
 
-private class ForecastPreviewProvider : PreviewParameterProvider<ForecastWeatherItem> {
-    override val values: Sequence<ForecastWeatherItem> = sequenceOf(
-        ForecastWeatherItem(
+private class ForecastPreviewProvider : PreviewParameterProvider<chkan.example.domain.models.ForecastWeatherItem> {
+    override val values: Sequence<chkan.example.domain.models.ForecastWeatherItem> = sequenceOf(
+        chkan.example.domain.models.ForecastWeatherItem(
             id = Random.nextInt(),
             date = "Jan",
             maxTempC = 4.5,
@@ -120,7 +120,7 @@ private class ForecastPreviewProvider : PreviewParameterProvider<ForecastWeather
 @Preview
 @Composable
 fun WeatherForecastCardPreview(
-    @PreviewParameter(ForecastPreviewProvider::class) forecast: ForecastWeatherItem
+    @PreviewParameter(ForecastPreviewProvider::class) forecast: chkan.example.domain.models.ForecastWeatherItem
 ) {
     WeatherForecastCard(forecast = forecast)
 }

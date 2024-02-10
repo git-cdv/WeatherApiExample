@@ -22,10 +22,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chkan.example.weatherapiexample.R
-import chkan.example.weatherapiexample.core.model.ErrorResult
-import chkan.example.weatherapiexample.core.model.PendingResult
-import chkan.example.weatherapiexample.core.model.SuccessResult
-import chkan.example.weatherapiexample.domain.models.CurrentWeatherItem
+import chkan.example.core.model.ErrorResult
+import chkan.example.core.model.PendingResult
+import chkan.example.core.model.SuccessResult
+import chkan.example.domain.models.CurrentWeatherItem
 import chkan.example.weatherapiexample.ui.ShareViewModel
 import chkan.example.weatherapiexample.ui.models.WeatherUiModel
 

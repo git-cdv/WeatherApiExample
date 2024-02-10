@@ -1,8 +1,9 @@
 package chkan.example.weatherapiexample.ui.mappers
 
-import chkan.example.weatherapiexample.core.model.Mapper
-import chkan.example.weatherapiexample.domain.models.ForecastWeatherItem
-import chkan.example.weatherapiexample.domain.models.WeatherDomainModel
+
+import chkan.example.core.model.Mapper
+import chkan.example.domain.models.ForecastWeatherItem
+import chkan.example.domain.models.WeatherDomainModel
 import javax.inject.Inject
 
 class WeatherDomainToUiForecastMapper @Inject constructor():

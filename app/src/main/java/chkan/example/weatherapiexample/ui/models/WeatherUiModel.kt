@@ -1,7 +1,7 @@
 package chkan.example.weatherapiexample.ui.models
 
-import chkan.example.weatherapiexample.domain.models.CurrentWeatherItem
+import chkan.example.domain.models.CurrentWeatherItem
 
 data class WeatherUiModel (
-    val currentListItem: List<CurrentWeatherItem>
+    val currentListItem: List<chkan.example.domain.models.CurrentWeatherItem>
 )
